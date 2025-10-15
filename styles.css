@@ -20,17 +20,17 @@ document.addEventListener("DOMContentLoaded", () => {
         resolve(number);
       }, 2000);
     })
-    // Multiply by 2 (2s)
+    // Second Promise: Multiply by 2 (1s)
     .then((num) => {
       return new Promise((resolve) => {
         setTimeout(() => {
           num *= 2;
           outputEl.textContent = `Result: ${num}`;
           resolve(num);
-        }, 2000);
+        }, 1000);
       });
     })
-    // Subtract 3 (1s)
+    // Third Promise: Subtract 3 (1s)
     .then((num) => {
       return new Promise((resolve) => {
         setTimeout(() => {
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000);
       });
     })
-    // Divide by 2 (1s)
+    // Fourth Promise: Divide by 2 (1s)
     .then((num) => {
       return new Promise((resolve) => {
         setTimeout(() => {
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000);
       });
     })
-    // Add 10 (1s)
+    // Fifth Promise: Add 10 (1s)
     .then((num) => {
       return new Promise((resolve) => {
         setTimeout(() => {
