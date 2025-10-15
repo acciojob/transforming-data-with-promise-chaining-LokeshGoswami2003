@@ -1,11 +1,14 @@
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const inputEl = document.getElementById("ip");
   const btnEl = document.getElementById("btn");
   const outputEl = document.getElementById("output");
 
-  btnEl.addEventListener("click", () => {
+  btnEl.addEventListener("click", async () => {
     const inputValue = inputEl.value.trim();
-
     if (inputValue === "") {
       outputEl.textContent = "Please enter a number.";
       return;
@@ -13,52 +16,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let number = parseFloat(inputValue);
 
-    // First Promise (2s)
-    new Promise((resolve) => {
-      setTimeout(() => {
-        outputEl.textContent = `Result: ${number}`;
-        resolve(number);
-      }, 2000);
-    })
-    // Second Promise: Multiply by 2 (1s)
-    .then((num) => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          num *= 2;
-          outputEl.textContent = `Result: ${num}`;
-          resolve(num);
-        }, 1000);
-      });
-    })
-    // Third Promise: Subtract 3 (1s)
-    .then((num) => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          num -= 3;
-          outputEl.textContent = `Result: ${num}`;
-          resolve(num);
-        }, 1000);
-      });
-    })
-    // Fourth Promise: Divide by 2 (1s)
-    .then((num) => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          num /= 2;
-          outputEl.textContent = `Result: ${num}`;
-          resolve(num);
-        }, 1000);
-      });
-    })
-    // Fifth Promise: Add 10 (1s)
-    .then((num) => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          num += 10;
-          outputEl.textContent = `Final Result: ${num}`;
-          resolve(num);
-        }, 1000);
-      });
-    });
+    // Step 1: Initial display (2s delay)
+    await delay(2000);
+    outputEl.textContent = `Result: ${number}`;
+
+    // Step 2: Multiply by 2 (1s delay)
+    await delay(1000);
+    number *= 2;
+    outputEl.textContent = `Result: ${number}`;
+
+    // Step 3: Subtract 3 (1s delay)
+    await delay(1000);
+    number -= 3;
+    outputEl.textContent = `Result: ${number}`;
+
+    // Step 4: Divide by 2 (1s delay)
+    await delay(1000);
+    number /= 2;
+    outputEl.textContent = `Result: ${number}`;
+
+    // Step 5: Add 10 (1s delay)
+    await delay(1000);
+    number += 10;
+    outputEl.textContent = `Final Result: ${number}`;
   });
 });
