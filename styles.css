@@ -1,43 +1,62 @@
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+//your JS code here. If required.
+const btn = document.getElementById('btn');
+const promise1 = (ip)=>{
+	return new Promise((resolve,reject)=>{
+		setTimeout(()=>{
+		const ip =Number(document.getElementById('ip').value);
+		resolve(ip);
+	},2000)
+	})
+} 
+const promise2 = (data)=>{
+	return new Promise((resolve,reject)=>{
+		setTimeout(()=>{
+			data=data*2;
+			resolve(data);
+		},2000)
+	})
+}
+const promise3 = (data)=>{
+	return new Promise((resolve,reject)=>{
+		setTimeout(()=>{
+			data=data-3;
+			resolve(data);
+		},1000)
+	})
+}
+const promise4 = (data)=>{
+	return new Promise((resolve,reject)=>{
+		setTimeout(()=>{
+			data=data/2;
+			resolve(data);
+		},1000)
+	})
+}
+const promise5 = (data)=>{
+	return new Promise((resolve,reject)=>{
+		setTimeout(()=>{
+			data=data+10;
+			resolve(data);
+		},1000)
+	})
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const inputEl = document.getElementById("ip");
-  const btnEl = document.getElementById("btn");
-  const outputEl = document.getElementById("output");
-
-  btnEl.addEventListener("click", async () => {
-    const inputValue = inputEl.value.trim();
-    if (inputValue === "") {
-      outputEl.textContent = "Please enter a number.";
-      return;
-    }
-
-    let number = parseFloat(inputValue);
-
-    // Step 1: Initial display (2s delay)
-    await delay(2000);
-    outputEl.textContent = `Result: ${number}`;
-
-    // Step 2: Multiply by 2 (1s delay)
-    await delay(1000);
-    number *= 2;
-    outputEl.textContent = `Result: ${number}`;
-
-    // Step 3: Subtract 3 (1s delay)
-    await delay(1000);
-    number -= 3;
-    outputEl.textContent = `Result: ${number}`;
-
-    // Step 4: Divide by 2 (1s delay)
-    await delay(1000);
-    number /= 2;
-    outputEl.textContent = `Result: ${number}`;
-
-    // Step 5: Add 10 (1s delay)
-    await delay(1000);
-    number += 10;
-    outputEl.textContent = `Final Result: ${number}`;
-  });
-});
+btn.addEventListener('click',()=>{
+	const output=document.getElementById('output');
+	promise1().then((value)=>{
+		output.innerHTML=`Result: ${value}`
+		return promise2(value);
+	}).then((value)=>{
+		output.innerHTML=`Result: ${value}`
+		return promise3(value);
+	}).then((value)=>{
+		output.innerHTML=`Result: ${value}`
+		return promise4(value);
+	}).then((value)=>{
+		output.innerHTML=`Result: ${value}`
+		return promise5(value);
+	}).then((value)=>{
+       output.innerHTML=`Final Result: ${value}`
+	})
+	
+})
