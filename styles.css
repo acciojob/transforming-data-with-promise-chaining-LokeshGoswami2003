@@ -1,49 +1,64 @@
-/*  your css code here. If applicable */
-// Get needed DOM elements
-const input = document.getElementById('ip');
-const button = document.getElementById('btn');
-const output = document.getElementById('output');
+document.addEventListener("DOMContentLoaded", () => {
+  const inputEl = document.getElementById("ip");
+  const btnEl = document.getElementById("btn");
+  const outputEl = document.getElementById("output");
 
-// Utility function to update output
-function showResult(text) {
-    output.textContent = text;
-}
+  btnEl.addEventListener("click", () => {
+    const inputValue = inputEl.value.trim();
 
-// Promise-based transformation functions
-function waitAndResolve(value, delay) {
-    return new Promise(resolve => {
+    if (inputValue === "") {
+      outputEl.textContent = "Please enter a number.";
+      return;
+    }
+
+    let number = parseFloat(inputValue);
+
+    // First Promise (2s)
+    new Promise((resolve) => {
+      setTimeout(() => {
+        outputEl.textContent = `Result: ${number}`;
+        resolve(number);
+      }, 2000);
+    })
+    // Multiply by 2 (2s)
+    .then((num) => {
+      return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(value);
-        }, delay);
+          num *= 2;
+          outputEl.textContent = `Result: ${num}`;
+          resolve(num);
+        }, 2000);
+      });
+    })
+    // Subtract 3 (1s)
+    .then((num) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          num -= 3;
+          outputEl.textContent = `Result: ${num}`;
+          resolve(num);
+        }, 1000);
+      });
+    })
+    // Divide by 2 (1s)
+    .then((num) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          num /= 2;
+          outputEl.textContent = `Result: ${num}`;
+          resolve(num);
+        }, 1000);
+      });
+    })
+    // Add 10 (1s)
+    .then((num) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          num += 10;
+          outputEl.textContent = `Final Result: ${num}`;
+          resolve(num);
+        }, 1000);
+      });
     });
-}
-
-button.onclick = function() {
-    // Clear previous output
-    output.textContent = "";
-    
-    // Get number from input
-    const num = Number(input.value);
-
-    // Chain promises and transformations
-    waitAndResolve(num, 2000)
-        .then(result => {
-            showResult(`Result: ${result}`);
-            return waitAndResolve(result * 2, 2000); // multiply by 2
-        })
-        .then(result => {
-            showResult(`Result: ${result}`);
-            return waitAndResolve(result - 3, 1000); // subtract 3
-        })
-        .then(result => {
-            showResult(`Result: ${result}`);
-            return waitAndResolve(result / 2, 1000); // divide by 2
-        })
-        .then(result => {
-            showResult(`Result: ${result}`);
-            return waitAndResolve(result + 10, 1000); // add 10
-        })
-        .then(finalResult => {
-            showResult(`Final Result: ${finalResult}`);
-        });
-};
+  });
+});
